@@ -1,0 +1,8 @@
+{
+  "name": "CarretosJa",
+  "app_id": "df4ede85",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
