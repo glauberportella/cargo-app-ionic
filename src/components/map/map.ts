@@ -19,8 +19,10 @@ export class MapComponent implements OnInit {
 
   @Input() isRideRequested: boolean;
 
-  @ViewChild('map') mapElement: ElementRef;
-  public map: any;
+  @ViewChild('mapEl') mapElement: ElementRef;
+
+  public map: google.maps.Map;
+  public isMapIdle: boolean;
 
   constructor(public geolocation: Geolocation, public loadingCtrl: LoadingController) {
 
@@ -28,8 +30,19 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     this.createMap();
+    this.addMapEventListeners();
     this.getCurrentLocation().subscribe(location => {
        this.centerLocation(location);
+    });
+  }
+
+  addMapEventListeners() {
+    google.maps.event.addListener(this.map, 'dragstart', () => {
+        this.isMapIdle = false;
+    });
+
+    google.maps.event.addListener(this.map, 'idle', () => {
+        this.isMapIdle = true;
     });
   }
 

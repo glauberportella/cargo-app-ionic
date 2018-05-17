@@ -1,5 +1,8 @@
 <!-- Generated template for the MapComponent component -->
 <div class="wrapper">
-    <div #map id="map"></div>
-    <pickup></pickup>
+    <div #mapEl id="map"></div>
+    <pickup [map]="map" [isPinSet]="isMapIdle"></pickup>
+    <available-vehicles
+        [map]="map"
+        [isRideRequested]="isRideRequested"></available-vehicles>
 </div>
