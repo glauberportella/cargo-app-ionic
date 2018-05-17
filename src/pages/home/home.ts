@@ -7,8 +7,18 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  public isRideRequested: boolean;
 
+  constructor(public navCtrl: NavController) {
+    this.isRideRequested = false;
+  }
+
+  confirmRide() {
+    this.isRideRequested = true;
+  }
+
+  cancelRide() {
+    this.isRideRequested = false;
   }
 
 }

@@ -1,14 +1,52 @@
 <ion-header>
   <ion-navbar>
+    <ion-buttons start>
+      <button ion-button [hidden]="!isRideRequested" (click)="cancelRide()">
+        <ion-icon name="arrow-back"></ion-icon> Cancelar
+      </button>
+    </ion-buttons>
     <ion-title>
-      Ionic Blank
+      <span [hidden]="isRideRequested">CarretosJá</span>
+      <span [hidden]="!isRideRequested">Carreto a caminho...</span>
     </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="map.centerLocation()">
+        <ion-icon name="navigate"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content>
+  <div class="map-wrapper">
+    <map #map [isRideRequested]="isRideRequested"></map>
+  </div>
+
+  <div class="bottom request-controls">
+    <ion-row>
+      <ion-col width-50>
+        <button ion-button color="light" block>
+          <ion-icon name="card"></ion-icon>
+          Visa **34
+        </button>
+      </ion-col>
+      <ion-col width-50>
+        <button ion-button color="light" block>
+          <ion-icon name="cash"></ion-icon>
+          Dinheiro
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button [hidden]="isRideRequested" (click)="confirmRide()" ion-button color="primary" block>SOLICITAR CARRETO</button>
+        <button [hidden]="!isRideRequested" (click)="cancelRide()" ion-button color="secondary" block>CANCELAR CARRETO</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        Carreto em aprox. 5 min.
+      </ion-col>
+    </ion-row>
+  </div>
 </ion-content>
