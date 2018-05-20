@@ -21,6 +21,10 @@ export class VehiclesProvider {
     this.simulate = new SimulateProvider();
   }
 
+  getPickupVehicle() {
+    return this.simulate.getPickupVehicle();
+  }
+
   getVehicles(lat, lng) {
     return Observable
         .interval(2000)
@@ -29,6 +33,6 @@ export class VehiclesProvider {
   }
 
   findPickupVehicle(pickupLocation) {
-    this.simulate.findPickupVehicle(pickupLocation);
+    return this.simulate.findPickupVehicle(pickupLocation);
   }
 }

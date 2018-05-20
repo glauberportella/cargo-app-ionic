@@ -73,12 +73,9 @@ export class AvailableVehiclesComponent implements OnInit, OnChanges {
   fetchAndRefreshVehicles() {
     this.vehicleService.getVehicles(-19.845141, -43.927722)
         .subscribe(vehicles => {
-            console.log(vehicles);
-            if (vehicles) {
-              vehicles.cars.forEach(car => {
-                this.updateVehicleMarker(car);
-              });
-            }
+          vehicles.cars.forEach(car => {
+            this.updateVehicleMarker(car);
+          });
         });
   }
 

@@ -42,7 +42,7 @@ export class SimulateProvider {
             let numOfSteps = steps.length;
 
             while (numOfSteps--) {
-                let step = steps[numOfStep];
+                let step = steps[numOfSteps];
                 let points = step.path;
                 let numOfPoints = points.length;
 
@@ -111,7 +111,7 @@ export class SimulateProvider {
 
         this.carIndex++;
 
-        if (this.carIndex > this.cars.length) {
+        if (this.carIndex > this.cars.length - 1) {
             this.carIndex = 0;
         }
 

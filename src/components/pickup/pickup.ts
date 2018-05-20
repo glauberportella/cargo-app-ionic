@@ -15,6 +15,7 @@ export class PickupComponent implements OnChanges {
 
   @Input() isPinSet: boolean;
   @Input() map: google.maps.Map;
+  @Input() isRideRequested: boolean;
   @Output() updatedPickupLocation: EventEmitter<google.maps.LatLng> = new EventEmitter();
 
   private pickupMarker: google.maps.Marker;
@@ -24,14 +25,21 @@ export class PickupComponent implements OnChanges {
   }
 
   ngOnChanges(changes) {
-    if (this.isPinSet) {
-      this.showPickupMarker();
-    } else {
-      this.removePickupMarker();
+    // do not allow pickup pin location
+    // to change if ride is requested
+    if (!this.isRideRequested) {
+      if (this.isPinSet) {
+        this.showPickupMarker();
+      } else {
+        this.removePickupMarker();
+      }
     }
   }
 
   showPickupMarker() {
+
+    this.removePickupMarker();
+    
     this.pickupMarker = new google.maps.Marker({
        map: this.map,
        animation: google.maps.Animation.BOUNCE,
