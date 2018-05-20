@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 import "rxjs/add/observable/interval";
 import "rxjs/add/operator/switchMap";
+import {SimulateProvider} from "../simulate/simulate";
+import "rxjs/add/operator/share";
 
 /*
   Generated class for the VehiclesProvider provider.
@@ -14,15 +15,20 @@ import "rxjs/add/operator/switchMap";
 @Injectable()
 export class VehiclesProvider {
 
-  constructor(public http: HttpClient) {
+  public simulate: SimulateProvider;
+
+  constructor() {
+    this.simulate = new SimulateProvider();
   }
 
   getVehicles(lat, lng) {
     return Observable
         .interval(2000)
-        .switchMap(() => {
-
-        })
+        .switchMap(() => this.simulate.getVehicles(lat, lng))
         .share();
+  }
+
+  findPickupVehicle(pickupLocation) {
+    this.simulate.findPickupVehicle(pickupLocation);
   }
 }

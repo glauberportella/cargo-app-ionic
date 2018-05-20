@@ -1,9 +1,8 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Geolocation} from "@ionic-native/geolocation";
 import {LoadingController} from "ionic-angular";
 import {Observable} from "rxjs/Observable";
-
-declare var google;
+import {VehiclesProvider} from "../../providers/vehicles/vehicles";
 
 /**
  * Generated class for the MapComponent component.
@@ -23,6 +22,7 @@ export class MapComponent implements OnInit {
 
   public map: google.maps.Map;
   public isMapIdle: boolean;
+  public currentLocation: google.maps.LatLng;
 
   constructor(public geolocation: Geolocation, public loadingCtrl: LoadingController) {
 
@@ -34,6 +34,11 @@ export class MapComponent implements OnInit {
     this.getCurrentLocation().subscribe(location => {
        this.centerLocation(location);
     });
+  }
+
+  updatePickupLocation(location) {
+      this.currentLocation = location;
+      this.centerLocation(location);
   }
 
   addMapEventListeners() {

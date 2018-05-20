@@ -1,6 +1,5 @@
-import {Component, Input, OnChanges} from '@angular/core';
-
-declare var google;
+import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
+import {VehiclesProvider} from "../../providers/vehicles/vehicles";
 
 /**
  * Generated class for the PickupComponent component.
@@ -16,6 +15,7 @@ export class PickupComponent implements OnChanges {
 
   @Input() isPinSet: boolean;
   @Input() map: google.maps.Map;
+  @Output() updatedPickupLocation: EventEmitter<google.maps.LatLng> = new EventEmitter();
 
   private pickupMarker: google.maps.Marker;
   private popup: google.maps.InfoWindow;
@@ -44,6 +44,9 @@ export class PickupComponent implements OnChanges {
     }, 750);
 
     this.showPickupTime();
+
+    // send pickup location
+    this.updatedPickupLocation.next(this.pickupMarker.getPosition());
   }
 
   removePickupMarker() {

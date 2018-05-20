@@ -9,6 +9,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import {ComponentsModule} from "../components/components.module";
 import { VehiclesProvider } from '../providers/vehicles/vehicles';
+import { SimulateProvider } from '../providers/simulate/simulate';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { VehiclesProvider } from '../providers/vehicles/vehicles';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    VehiclesProvider
+    VehiclesProvider,
+    SimulateProvider
   ]
 })
 export class AppModule {}
