@@ -2,7 +2,6 @@ import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} f
 import {Geolocation} from "@ionic-native/geolocation";
 import {LoadingController} from "ionic-angular";
 import {Observable} from "rxjs/Observable";
-import {VehiclesProvider} from "../../providers/vehicles/vehicles";
 
 /**
  * Generated class for the MapComponent component.

@@ -19,7 +19,12 @@
 
 <ion-content>
   <div class="map-wrapper">
-    <map #map [isRideRequested]="isRideRequested"></map>
+    <map #map
+         [isRideRequested]="isRideRequested">
+    </map>
+    <destination-address
+      [hidden]="!isRiderPickedUp"
+      (newDest)="setDestination($event)"></destination-address>
   </div>
 
   <div class="bottom request-controls">
@@ -45,7 +50,7 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        Carreto em aprox. 5 min.
+        Carreto em aprox. {{timeTillArrival}} min.
       </ion-col>
     </ion-row>
   </div>

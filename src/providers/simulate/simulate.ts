@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs/Observable";
+import 'rxjs/add/observable/timer';
 
 /*
   Generated class for the SimulateProvider provider.
@@ -16,6 +17,16 @@ export class SimulateProvider {
 
     constructor() {
         this.directionService = new google.maps.DirectionsService();
+    }
+
+    riderPickedUp() {
+        // simulate rider picked up after 1 second;
+        return Observable.timer(1000);
+    }
+
+    riderDroppedOff() {
+        // simulate rider dropped off after 1 second;
+        return Observable.timer(1000);
     }
 
     getPickupVehicle() {

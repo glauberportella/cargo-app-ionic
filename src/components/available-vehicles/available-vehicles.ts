@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {VehiclesProvider} from "../../providers/vehicles/vehicles";
-import SlidingMarker from 'marker-animate-unobtrusive';
+const SlidingMarker = require('marker-animate-unobtrusive');
 
 
 /**

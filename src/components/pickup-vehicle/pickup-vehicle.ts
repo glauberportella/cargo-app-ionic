@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {VehiclesProvider} from "../../providers/vehicles/vehicles";
-import SlidingMarker from 'marker-animate-unobtrusive';
+import {PickupPubSubProvider} from "../../providers/pickup-pub-sub/pickup-pub-sub";
+const SlidingMarker = require('marker-animate-unobtrusive');
 
 /**
  * Generated class for the PickupVehicleComponent component.
@@ -21,7 +22,11 @@ export class PickupVehicleComponent implements OnInit, OnChanges {
   public pickupVehicleMarker: any;
   public polylinePath: google.maps.Polyline;
 
-  constructor(public vehicleService: VehiclesProvider) {
+  constructor(
+      public vehicleService: VehiclesProvider,
+      private pickupPubSub: PickupPubSubProvider
+  ) {
+
   }
 
   ngOnInit() {
@@ -37,20 +42,24 @@ export class PickupVehicleComponent implements OnInit, OnChanges {
     }
   }
 
-  updateVehicle() {
+  updateVehicle(cbDone) {
     this.vehicleService.getPickupVehicle().subscribe(vehicle => {
       // animate car to next point
       this.pickupVehicleMarker.setPosition(vehicle.position);
       // set direction path to car
       this.polylinePath.setPath(vehicle.path);
 
+      // update arrival time
+      this.pickupPubSub.emitArrivalTime(vehicle.time);
+
       // keep updating car
       if (vehicle.path.length > 1) {
         setTimeout(() => {
-          this.updateVehicle();
+          this.updateVehicle(cbDone);
         }, 1000);
       } else {
         // car arrived
+        cbDone();
       }
     });
   }
@@ -75,6 +84,12 @@ export class PickupVehicleComponent implements OnInit, OnChanges {
     this.pickupVehicleMarker.setEasing('linear');
   }
 
+  checkForRiderPickup() {
+    this.vehicleService.pollForRiderPickup().subscribe(data => {
+      this.pickupPubSub.emitPickUp();
+    });
+  }
+
   requestVehicle() {
     this.vehicleService.findPickupVehicle(this.pickupLocation)
         .subscribe(vehicle => {
@@ -83,7 +98,7 @@ export class PickupVehicleComponent implements OnInit, OnChanges {
           // show car direction/path to you
           this.showDirections(vehicle.path);
           // keep updating vehicle
-          this.updateVehicle();
+          this.updateVehicle(() => this.checkForRiderPickup() );
         });
   }
 
