@@ -16,6 +16,7 @@ import {Observable} from "rxjs/Observable";
 export class MapComponent implements OnInit {
 
   @Input() isRideRequested: boolean;
+  @Input() destination: string;
 
   @ViewChild('mapEl') mapElement: ElementRef;
 

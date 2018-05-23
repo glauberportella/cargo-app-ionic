@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/observable/timer';
+import {Vehicle} from '../vehicles/vehicles';
 
 /*
   Generated class for the SimulateProvider provider.
@@ -46,7 +47,7 @@ export class SimulateProvider {
 
         let numOfLegs = legs.length;
 
-        // work backwards through each leg in directions route
+        // work backwards though each leg in directions route
         while (numOfLegs--) {
             let leg = legs[numOfLegs];
             let steps = leg.steps;
@@ -116,8 +117,11 @@ export class SimulateProvider {
         return this.simulateRoute(start, end);
     }
 
+    dropoffPickupVehicle(pickupLocation, dropoffLocation) {
+        return this.simulateRoute(pickupLocation, dropoffLocation);
+    }
 
-    getVehicles(lat, lng) {
+    getVehicles(lat, lng): Observable<Vehicle> {
         let carData = this.cars[this.carIndex];
 
         this.carIndex++;

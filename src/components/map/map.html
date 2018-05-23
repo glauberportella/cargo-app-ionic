@@ -5,6 +5,7 @@
         [map]="map"
         [isPinSet]="isMapIdle"
         [isRideRequested]="isRideRequested"
+        [destination]="destination"
         (updatedPickupLocation)="updatePickupLocation($event)"></pickup>
     <available-vehicles
         [map]="map"
@@ -12,5 +13,6 @@
     <pickup-vehicle
         [map]="map"
         [isRideRequested]="isRideRequested"
-        [pickupLocation]="currentLocation"></pickup-vehicle>
+        [pickupLocation]="currentLocation"
+        [destination]="destination"></pickup-vehicle>
 </div>

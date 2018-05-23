@@ -20,7 +20,8 @@
 <ion-content>
   <div class="map-wrapper">
     <map #map
-         [isRideRequested]="isRideRequested">
+          [isRideRequested]="isRideRequested"
+          [destination]="destination">
     </map>
     <destination-address
       [hidden]="!isRiderPickedUp"

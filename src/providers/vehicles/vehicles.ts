@@ -6,6 +6,10 @@ import "rxjs/add/operator/switchMap";
 import {SimulateProvider} from "../simulate/simulate";
 import "rxjs/add/operator/share";
 
+export interface Vehicle {
+  cars: Array<any>;
+}
+
 /*
   Generated class for the VehiclesProvider provider.
 
@@ -29,11 +33,15 @@ export class VehiclesProvider {
     return this.simulate.riderDroppedOff();
   }
 
+  dropoffVehicle(pickupLocation, dropoffLocation) {
+    return this.simulate.dropoffPickupVehicle(pickupLocation, dropoffLocation);
+  }
+
   getPickupVehicle() {
     return this.simulate.getPickupVehicle();
   }
 
-  getVehicles(lat, lng) {
+  getVehicles(lat, lng): Observable<Vehicle>  {
     return Observable
         .interval(2000)
         .switchMap(() => this.simulate.getVehicles(lat, lng))
